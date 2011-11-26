@@ -24,3 +24,17 @@ Implementation
 
 The implementation is creating a tree structure from the domain and has
 unit tests.
+
+Tests
+=====
+
+To run the tests just execute
+
+    node tests/test-publicsuffix.js
+
+No Unit testing framework is required.
+
+Dependencies
+============
+
+- underscore
