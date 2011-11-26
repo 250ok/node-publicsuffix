@@ -1,0 +1,8 @@
+{
+  "author": "Mark Engel",
+  "name": "publicsuffix",
+  "version": "1.0.0",
+  "dependencies": {
+    "underscore": "*"
+  }
+}
