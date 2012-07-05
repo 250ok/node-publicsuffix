@@ -1,6 +1,6 @@
 {
     "author": "Mark Engel <mark.c.engel@gmail.com> https://github.com/mren",
-    "name": "publicsuffix",
+    "name": "public-suffix",
     "version": "1.0.0",
     "main": "lib/publicsuffix",
     "dependencies": {
