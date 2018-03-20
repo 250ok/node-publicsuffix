@@ -1,7 +1,7 @@
 {
     "author": "Mark Engel <mark.c.engel@gmail.com> https://github.com/mren",
     "name": "@250ok/public-suffix",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "main": "lib/publicsuffix",
     "scripts":{
         "test": "node tests/test-publicsuffix.js"
