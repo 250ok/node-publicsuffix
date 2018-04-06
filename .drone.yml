@@ -1,0 +1,48 @@
+pipeline:
+  build:
+    secrets: [npm_token]
+    image: node:6.9.4
+    environment:
+      - NODE_ENV=${NODE_ENV} # https://github.com/nodejs/docker-node/blob/madocker-comster/docs/BestPractices.md
+      - WITH_SASL=0 # Needed for node-rfkafka to build.  sasl is used for kerberos so its not needed.
+    commands:
+      - npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN
+      - npm install --quiet
+      - rm ~/.npmrc
+      - npm test
+
+  npm-publish:
+    image: plugins/npm
+    secrets: [ npm_token ]
+    when:
+      event: [ tag ]
+      success: true
+
+  trigger-builds:
+    image: plugins/downstream
+    server: https://drone.250ok.com
+    fork: true
+    repositories:
+      - 250ok/provider-mailchimp@master
+      - 250ok/provider-mailgun@master
+      - 250ok/provider-base@master
+      - 250ok/provider-universal@master
+      - 250ok/provider-sparkpost@master
+      - 250ok/provider-maropost@master
+      - 250ok/provider-sendgrid@master
+      - 250ok/integration@master
+      - 250ok/mod-utils@master
+      - 250ok/mbp-metadata@master
+      - 250ok/ds-intake-service@master
+      - 250ok/ds-datasync@master
+      - 250ok/ds-webhook-relay@master
+      - 250ok/ds-publisher@master
+      - 250ok/ds-feed-generator@master
+      - 250ok/data-service-monitor@master
+      - 250ok/service-api@master
+    secrets: [ downstream_token ]
+    when:
+      event: [ tag ]
+      success: true
+
+
