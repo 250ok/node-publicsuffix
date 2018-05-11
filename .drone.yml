@@ -1,15 +1,36 @@
 pipeline:
   build:
-    secrets: [npm_token]
-    image: node:6.9.4
+    secrets: [ npm_token, npm_registry ]
+    image: 250ok/node:latest
     environment:
       - NODE_ENV=${NODE_ENV} # https://github.com/nodejs/docker-node/blob/madocker-comster/docs/BestPractices.md
-      - WITH_SASL=0 # Needed for node-rfkafka to build.  sasl is used for kerberos so its not needed.
     commands:
-      - npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN
-      - npm install --quiet
+      - npm config set $NPM_REGISTRY:_authToken=$NPM_TOKEN
+      - npm install --unsafe-perm --quiet --registry http:$NPM_REGISTRY
       - rm ~/.npmrc
       - npm test
+    when:
+      branch:
+        exclude: [ develop ]
+
+  build-dev:
+    secrets:
+      - source: npm_dev_token
+        target: npm_token
+      - source: npm_dev_registry
+        target: npm_registry
+    image: 250ok/node:latest
+    environment:
+      - NODE_ENV=${NODE_ENV} # https://github.com/nodejs/docker-node/blob/madocker-comster/docs/BestPractices.md
+    commands:
+      - npm config set $NPM_REGISTRY:_authToken=$NPM_TOKEN
+      - npm install --unsafe-perm --quiet --registry http:$NPM_REGISTRY
+      - npm test
+      - npm unpublish --force --registry http:$NPM_REGISTRY @250ok/public-suffix
+      - npm publish --registry http:$NPM_REGISTRY
+      - rm ~/.npmrc
+    when:
+      branch: [ develop ]
 
   npm-publish:
     image: plugins/npm
@@ -45,4 +66,30 @@ pipeline:
       event: [ tag ]
       success: true
 
-
+  trigger-dev-builds:
+    image: plugins/downstream
+    server: https://drone.250ok.com
+    fork: true
+    repositories:
+      - 250ok/provider-mailchimp@develop
+      - 250ok/provider-mailgun@develop
+      - 250ok/provider-base@develop
+      - 250ok/provider-universal@develop
+      - 250ok/provider-sparkpost@develop
+      - 250ok/provider-maropost@develop
+      - 250ok/provider-sendgrid@develop
+      - 250ok/integration@develop
+      - 250ok/mod-utils@develop
+      - 250ok/mbp-metadata@develop
+      - 250ok/ds-intake-service@develop
+      - 250ok/ds-datasync@develop
+      - 250ok/ds-webhook-relay@develop
+      - 250ok/ds-publisher@develop
+      - 250ok/ds-feed-generator@develop
+      - 250ok/data-service-monitor@develop
+      - 250ok/service-api@develop
+    secrets: [ downstream_token ]
+    when:
+      branch: [ develop ]
+      event: [ push ]
+      success: true
