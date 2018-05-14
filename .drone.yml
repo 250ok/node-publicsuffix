@@ -40,9 +40,10 @@ pipeline:
       success: true
 
   trigger-builds:
-    image: plugins/downstream
+    image: 250ok/downstream
     server: https://drone.250ok.com
     fork: true
+    ignore_pending: true
     repositories:
       - 250ok/provider-mailchimp@master
       - 250ok/provider-mailgun@master
@@ -67,9 +68,10 @@ pipeline:
       success: true
 
   trigger-dev-builds:
-    image: plugins/downstream
+    image: 250ok/downstream
     server: https://drone.250ok.com
     fork: true
+    ignore_pending: true
     repositories:
       - 250ok/provider-mailchimp@develop
       - 250ok/provider-mailgun@develop
