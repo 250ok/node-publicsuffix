@@ -26,7 +26,9 @@ pipeline:
       - npm config set $NPM_REGISTRY:_authToken=$NPM_TOKEN
       - npm install --unsafe-perm --quiet --registry http:$NPM_REGISTRY
       - npm test
-      - npm unpublish --force --registry http:$NPM_REGISTRY @250ok/public-suffix
+      - "PACKAGE_VERSION=$(cat package.json | grep version | head -1 |  awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]')"
+      - "PACKAGE_NAME=$(cat package.json | grep name | head -1 |  awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]')"
+      - npm unpublish --force --registry http:$NPM_REGISTRY $PACKAGE_NAME@$PACKAGE_VERSION
       - npm publish --registry http:$NPM_REGISTRY
       - rm ~/.npmrc
     when:
