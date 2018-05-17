@@ -4,7 +4,7 @@
     "version": "1.0.1",
     "main": "lib/publicsuffix",
     "scripts":{
-        "docker": "docker run --name node-publicsuffix-temp -it -u node --rm -w='/home/node/node-publicsuffix' -v $(pwd):/home/node/node-publicsuffix -v ~/.ssh:/home/node/.ssh -v ~/.npmrc:/home/node/.npmrc -e WITH_SASL=0 -e NPM_CONFIG_PREFIX='/home/node/.npm-global' node:6.9.4 /bin/bash",
+        "docker": "docker run --name node-publicsuffix-temp -it -u node --rm -w='/home/node/node-publicsuffix' -v $(pwd):/home/node/node-publicsuffix -v ~/.ssh:/home/node/.ssh -v ~/.npmrc:/home/node/.npmrc -e NPM_CONFIG_PREFIX='/home/node/.npm-global' 250ok/node:latest /bin/bash",
         "test": "node tests/test-publicsuffix.js"
     },
     "dependencies": {
