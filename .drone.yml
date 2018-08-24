@@ -47,13 +47,6 @@ pipeline:
     fork: true
     ignore_pending: true
     repositories:
-      - 250ok/provider-mailchimp@master
-      - 250ok/provider-mailgun@master
-      - 250ok/provider-base@master
-      - 250ok/provider-universal@master
-      - 250ok/provider-sparkpost@master
-      - 250ok/provider-maropost@master
-      - 250ok/provider-sendgrid@master
       - 250ok/integration@master
       - 250ok/mod-utils@master
       - 250ok/mbp-metadata@master
@@ -75,13 +68,6 @@ pipeline:
     fork: true
     ignore_pending: true
     repositories:
-      - 250ok/provider-mailchimp@develop
-      - 250ok/provider-mailgun@develop
-      - 250ok/provider-base@develop
-      - 250ok/provider-universal@develop
-      - 250ok/provider-sparkpost@develop
-      - 250ok/provider-maropost@develop
-      - 250ok/provider-sendgrid@develop
       - 250ok/integration@develop
       - 250ok/mod-utils@develop
       - 250ok/mbp-metadata@develop
