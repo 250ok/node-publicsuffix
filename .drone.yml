@@ -46,13 +46,13 @@ pipeline:
     server: https://drone.250ok.com
     fork: true
     ignore_pending: true
+    wait: true
     repositories:
       - 250ok/integration@master
       - 250ok/mod-utils@master
       - 250ok/mbp-metadata@master
       - 250ok/ds-intake-service@master
       - 250ok/ds-datasync@master
-      - 250ok/ds-webhook-relay@master
       - 250ok/ds-publisher@master
       - 250ok/ds-feed-generator@master
       - 250ok/data-service-monitor@master
@@ -67,17 +67,9 @@ pipeline:
     server: https://drone.250ok.com
     fork: true
     ignore_pending: true
+    wait: true
     repositories:
-      - 250ok/integration@develop
       - 250ok/mod-utils@develop
-      - 250ok/mbp-metadata@develop
-      - 250ok/ds-intake-service@develop
-      - 250ok/ds-datasync@develop
-      - 250ok/ds-webhook-relay@develop
-      - 250ok/ds-publisher@develop
-      - 250ok/ds-feed-generator@develop
-      - 250ok/data-service-monitor@develop
-      - 250ok/service-api@develop
     secrets: [ downstream_token ]
     when:
       branch: [ develop ]
