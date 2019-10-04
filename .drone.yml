@@ -1,3 +1,6 @@
+kind: pipeline
+name: default
+
 pipeline:
   build:
     secrets: [ npm_token, npm_registry ]
