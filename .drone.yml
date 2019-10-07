@@ -46,10 +46,10 @@ pipeline:
 
   trigger-builds:
     image: 250ok/downstream
-    server: https://drone.250ok.com
-    fork: true
+    server:
+      from_secret: drone_downstream_url
     ignore_pending: true
-    wait: true
+    fork: true
     repositories:
       - 250ok/integration@master
       - 250ok/mod-utils@master
@@ -60,19 +60,30 @@ pipeline:
       - 250ok/ds-feed-generator@master
       - 250ok/data-service-monitor@master
       - 250ok/service-api@master
-    secrets: [ downstream_token ]
+    token:
+      from_secret: downstream_token
     when:
       event: [ tag ]
       success: true
 
   trigger-dev-builds:
     image: 250ok/downstream
-    server: https://drone.250ok.com
-    fork: true
+    server:
+      from_secret: drone_downstream_url
     ignore_pending: true
-    wait: true
+    fork: true
     repositories:
+      - 250ok/integration@develop
       - 250ok/mod-utils@develop
+      - 250ok/mbp-metadata@develop
+      - 250ok/ds-intake-service@develop
+      - 250ok/ds-datasync@develop
+      - 250ok/ds-publisher@develop
+      - 250ok/ds-feed-generator@develop
+      - 250ok/data-service-monitor@develop
+      - 250ok/service-api@develop
+    token:
+      from_secret: downstream_token
     secrets: [ downstream_token ]
     when:
       branch: [ develop ]
