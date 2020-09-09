@@ -55,7 +55,6 @@ pipeline:
       - 250ok/mod-utils@master
       - 250ok/mbp-metadata@master
       - 250ok/ds-intake-service@master
-      - 250ok/ds-datasync@master
       - 250ok/ds-publisher@master
       - 250ok/ds-feed-generator@master
       - 250ok/data-service-monitor@master
@@ -77,7 +76,6 @@ pipeline:
       - 250ok/mod-utils@develop
       - 250ok/mbp-metadata@develop
       - 250ok/ds-intake-service@develop
-      - 250ok/ds-datasync@develop
       - 250ok/ds-publisher@develop
       - 250ok/ds-feed-generator@develop
       - 250ok/data-service-monitor@develop
